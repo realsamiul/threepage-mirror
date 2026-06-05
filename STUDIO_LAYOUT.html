@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exo Ape - Studio (Static Layout)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #0d0e13;
+      background: #ffffff;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.95);
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 3rem;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #0d0e13;
+      font-size: 0.95rem;
+      transition: opacity 0.3s;
+    }
+
+    .nav-link.is-current {
+      font-weight: 600;
+    }
+
+    .nav-link:hover {
+      opacity: 0.6;
+    }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 120px;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      min-height: 80vh;
+      align-items: center;
+      background: #ffffff;
+    }
+
+    .hero-text-1 {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .hero h2 {
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text-2 {
+      padding: 2rem;
+      background: #f5f5f5;
+      border-radius: 8px;
+    }
+
+    .hero-text-2 h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .hero-text-2 p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, #e0e0e0 0%, #d0d0d0 100%);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Link Button */
+    .link-button {
+      display: inline-flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: transparent;
+      border: 2px solid #0d0e13;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #0d0e13;
+      font-weight: 500;
+      width: fit-content;
+      transition: all 0.3s;
+    }
+
+    .link-button:hover {
+      background: #0d0e13;
+      color: white;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 6rem 2rem;
+      background: #0d0e13;
+      color: white;
+    }
+
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .services-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 6rem;
+      align-items: start;
+    }
+
+    .service-image {
+      width: 100%;
+      height: 400px;
+      background: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
+      margin-bottom: 6rem;
+    }
+
+    .service-item {
+      border-top: 1px solid #444;
+      padding-top: 2rem;
+    }
+
+    .service-item .index {
+      display: block;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      opacity: 0.6;
+    }
+
+    .service-item .subtitle {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .service-item p {
+      font-size: 0.95rem;
+      color: #bbb;
+      line-height: 1.8;
+    }
+
+    .services-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 4rem 0;
+      line-height: 1.2;
+    }
+
+    /* What We Believe Section */
+    .what-we-believe {
+      padding: 6rem 2rem;
+      background: white;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #999;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .what-we-believe h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .what-we-believe p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .quote {
+      padding: 2rem;
+      border-left: 4px solid #0d0e13;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #333;
+      margin: 2rem 0;
+    }
+
+    .belief-image {
+      width: 100%;
+      height: 500px;
+      background: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .belief-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* The Apes Section */
+    .the-apes {
+      padding: 6rem 2rem;
+      background: white;
+    }
+
+    .apes-text {
+      max-width: 800px;
+      margin-bottom: 4rem;
+    }
+
+    .apes-text h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 2rem 0;
+    }
+
+    .apes-text p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .apes-images {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .ape-image {
+      width: 100%;
+      height: 300px;
+      background: #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+    }
+
+    .ape-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .apes-quote {
+      padding: 2rem;
+      background: #f5f5f5;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* Recognition Section */
+    .recognition {
+      padding: 6rem 2rem;
+      background: #0d0e13;
+      color: white;
+    }
+
+    .recognition h2 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 2rem 0 4rem;
+    }
+
+    .publications {
+      margin-bottom: 4rem;
+    }
+
+    .publications ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .publications li {
+      padding: 1.5rem;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
+
+    .publications li p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    .publications a {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    .awards {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .award-item {
+      padding: 1.5rem;
+      border: 1px solid #444;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .award-name {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .award-amount {
+      display: block;
+      font-size: 1.3rem;
+      opacity: 0.7;
+    }
+
+    /* Footer */
+    footer {
+      padding: 4rem 2rem;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 1rem;
+    }
+
+    .footer-link {
+      color: #0d0e13;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .footer-link:hover {
+      opacity: 0.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .services-images {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .what-we-believe {
+        grid-template-columns: 1fr;
+      }
+
+      .publications ul,
+      .awards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .services-images {
+        grid-template-columns: 1fr;
+      }
+
+      .services-title {
+        font-size: 2rem;
+      }
+
+      .what-we-believe h2,
+      .apes-text h2,
+      .recognition h2 {
+        font-size: 2rem;
+      }
+
+      .apes-images {
+        grid-template-columns: 1fr;
+      }
+
+      .publications ul,
+      .awards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Scroll to explore */
+    .scroll-to {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">Exo Ape</div>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link">Work</a></li>
+      <li><a href="#" class="nav-link is-current">Studio</a></li>
+      <li><a href="#" class="nav-link">News</a></li>
+      <li><a href="#" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text-1">
+      <h1>Building<br>Digital<br>Presence</h1>
+      <h2>Digital experiences with maximum emotional impact</h2>
+      <div class="hero-text-2">
+        <h3>We explore and push the boundaries of digital for brands and businesses that strive to enhance people's lives through exceptional experiences.</h3>
+        <p>For over a decade, we've been using profound design aesthetics, meticulously crafted details, and surprising interactions to create digital experiences that spark conversation, inspire action, and drive desirability.</p>
+      </div>
+      <a href="#" class="link-button">Our Story →</a>
+    </div>
+    <div class="hero-image">
+      <img src="/storyblok/f/133769/2500x2626/63a902ce2b/exo-ape-studio-hero.jpg" alt="Exo Ape Studio Hero">
+    </div>
+  </section>
+
+  <div class="scroll-to">Scroll to explore</div>
+
+  <!-- Services Section -->
+  <section class="services">
+    <div class="section-container">
+      <div class="services-images">
+        <div class="service-image">
+          <img src="/storyblok/f/133769/1500x2123/637f850b2b/exo-ape-studio-collage-1.jpg" alt="Studio Work 1">
+        </div>
+        <div class="service-image">
+          <img src="/storyblok/f/133769/1500x1003/2581b1d31d/exo-ape-studio-collage-2.jpg" alt="Studio Work 2">
+        </div>
+        <div class="service-image">
+          <img src="/storyblok/f/133769/569x809/dd3f38466e/exo-ape-studio-collage-3.jpg" alt="Studio Work 3">
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-item">
+          <span class="index">01</span>
+          <h3 class="subtitle">Elevating sophistication across all senses</h3>
+          <p>We ensure that the high standards and sophistication of your product are experienced by all senses while blurring the lines between the physical and the digital world. We go deep into details to provide a holistic experience that leaves a lasting impression on your customers and fits seamlessly into your existing ecosystem.</p>
+        </div>
+        <div class="service-item">
+          <span class="index">02</span>
+          <h3 class="subtitle">To be human is our greatest quality</h3>
+          <p>We believe that intuition is the most advanced technology we have, and curiosity is our most powerful tool. Our team is guided by the principles of compassion and honesty in our day-to-day communications, and we understand that people value feeling more than information. That's why we pour a lot of soul and passion into our work, delivering experiences that touch people on a deeper level.</p>
+        </div>
+        <div class="service-item">
+          <span class="index">03</span>
+          <h3 class="subtitle">Simplicity is the dot on our horizon</h3>
+          <p>In today's world, we have become information-rich and time-poor. It is those who focus on what really matters that set the tone. We approach every project with a keen eye for simplicity and elegance. Great digital design is the perfect blend of form and function that focuses on the essentials and leaves behind the frivolous.</p>
+        </div>
+        <div class="service-item">
+          <span class="index">04</span>
+          <h3 class="subtitle">Uncompromising standard of excellence</h3>
+          <p>We aim to push boundaries and exceed expectations with every project, consistently delivering award-winning digital experiences. We recognize that true art lies in the intricacies, so we approach each project with a meticulous eye for detail and a commitment to crafting tailor-made experiences that capture the essence of your brand. Down to earth but reaching for the stars.</p>
+        </div>
+      </div>
+
+      <h2 class="services-title">Forever Upwards</h2>
+    </div>
+  </section>
+
+  <!-- What We Believe Section -->
+  <section class="what-we-believe">
+    <div>
+      <div class="section-label">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"/>
+        </svg>
+        What we believe
+      </div>
+      <h2>Data Informs,<br>Emotion Converts</h2>
+      <p>We believe that the most effective outcomes are achieved when data-driven insights are used to inspire emotive experiences. Leading to increased brand loyalty, long-term customer engagement, and higher conversion rates.</p>
+      <div class="quote">"Our approach is informed by insight and research, but at the end of the day, we focus on making people feel."</div>
+    </div>
+    <div class="belief-image">
+      <img src="/storyblok/f/133769/2500x1667/5224da023b/exo-ape-studio-mood.jpg" alt="Studio Mood">
+    </div>
+  </section>
+
+  <!-- The Apes Section -->
+  <section class="the-apes">
+    <div class="section-container">
+      <div class="section-label">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"/>
+        </svg>
+        The Apes
+      </div>
+      <div class="apes-text">
+        <h2>Design & Technology Enthusiasts</h2>
+        <p>We are a team* of like-minded design enthusiasts and tech aficionados that explore the digital frontier with grit and dedication. Intrigued by beauty, fascinated by technology and fuelled with an everlasting devotion to digital craftsmanship and meaningful aesthetics.</p>
+      </div>
+
+      <div class="apes-images">
+        <div class="ape-image">
+          <img src="/storyblok/f/133769/1920x1280/b13859fdad/exo-ape-studio-mood-team-04.jpg" alt="Team 1">
+        </div>
+        <div class="ape-image">
+          <img src="/storyblok/f/133769/1200x1790/ac2f6934ee/exo-ape-studio-mood-team-03.jpg" alt="Team 2">
+        </div>
+      </div>
+
+      <div class="apes-quote">
+        *We believe in a fluid team approach that allows us to bring together the best designers, developers and agencies in the world in order to serve the needs of today's clients.
+      </div>
+    </div>
+  </section>
+
+  <!-- Recognition Section -->
+  <section class="recognition">
+    <div class="section-container">
+      <div class="section-label" style="color: #999;">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"/>
+        </svg>
+        Recognition
+      </div>
+      <h2>Awards & Publications</h2>
+
+      <div class="publications">
+        <ul>
+          <li>
+            <p><strong>Ottografie</strong><br>Best Navigation Structure '26<br>
+            <a href="#">The Webby Awards</a></p>
+          </li>
+          <li>
+            <p><strong>Ottografie</strong><br>Gold Lovie Award '25<br>
+            <a href="#">Lovie Awards</a></p>
+          </li>
+          <li>
+            <p><strong>Ali Ali</strong><br>Site of the Month<br>
+            <a href="#">Awwwards</a></p>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="awards">
+        <li class="award-item">
+          <span class="award-name">Awwwards</span>
+          <span class="award-amount">x50</span>
+        </li>
+        <li class="award-item">
+          <span class="award-name">The FWA</span>
+          <span class="award-amount">x10</span>
+        </li>
+        <li class="award-item">
+          <span class="award-name">CSSDA</span>
+          <span class="award-amount">x8</span>
+        </li>
+        <li class="award-item">
+          <span class="award-name">Webby Awards</span>
+          <span class="award-amount">x4</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <ul>
+          <li><a href="#" class="footer-link">Willem II Singel 8<br>6041 HS, Roermond<br>The Netherlands</a></li>
+          <li><a href="mailto:hello@exoape.com" class="footer-link">hello@exoape.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <ul>
+          <li><a href="#" class="footer-link">Work</a></li>
+          <li><a href="#" class="footer-link is-current">Studio</a></li>
+          <li><a href="#" class="footer-link">News</a></li>
+          <li><a href="#" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <ul>
+          <li><a href="#" class="footer-link">Behance</a></li>
+          <li><a href="#" class="footer-link">Dribbble</a></li>
+          <li><a href="#" class="footer-link">LinkedIn</a></li>
+          <li><a href="#" class="footer-link">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
