@@ -8,7 +8,8 @@ const routeAliases = new Map([
   ['/news', '/index.html'],
   ['/contact', '/index.html'],
   ['/story', '/index.html'],
-  ['/studio', '/studio-standalone.html']
+  ['/studio', '/studio-standalone.html'],
+  ['/stitchmark', '/stitchmark-space.html']
 ]);
 
 const mime = {
