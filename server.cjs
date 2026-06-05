@@ -7,7 +7,8 @@ const port = Number(process.env.PORT || 4312);
 const routeAliases = new Map([
   ['/news', '/index.html'],
   ['/contact', '/index.html'],
-  ['/story', '/index.html']
+  ['/story', '/index.html'],
+  ['/studio', '/studio-standalone.html']
 ]);
 
 const mime = {
