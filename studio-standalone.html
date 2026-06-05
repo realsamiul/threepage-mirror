@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio - Standalone</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #ffffff;
+      color: #0d0e13;
+      overflow-x: hidden;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero.light {
+      background: #ffffff;
+      color: #0d0e13;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero .text-1 {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .hero .title {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .title-mask {
+      overflow: hidden;
+    }
+
+    .title-line {
+      display: inline-block;
+      animation: slideUp 0.8s ease-out forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .title-mask:nth-child(1) .title-line {
+      animation-delay: 0s;
+    }
+
+    .title-mask:nth-child(2) .title-line {
+      animation-delay: 0.1s;
+    }
+
+    .title-mask:nth-child(3) .title-line {
+      animation-delay: 0.2s;
+    }
+
+    .hero .subtitle {
+      font-size: 1.125rem;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 500px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hero .icon-arrow {
+      width: 24px;
+      height: 24px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.4s forwards;
+    }
+
+    .hero .text-2 {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .hero .body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .hero .body h3 {
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.5s forwards;
+    }
+
+    .hero .body p {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.7;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.6s forwards;
+    }
+
+    .link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out 0.7s forwards;
+    }
+
+    .link .wrap {
+      position: relative;
+      width: 50px;
+      height: 50px;
+    }
+
+    .link .circle {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #0d0e13;
+      z-index: 2;
+    }
+
+    .link .circle-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .link .circle-outline {
+      position: absolute;
+      inset: 0;
+      stroke: #0d0e13;
+      stroke-width: 2;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .link .circle-icon {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .link .label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .link .border {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .link:hover .circle-fill {
+      opacity: 1;
+    }
+
+    .link:hover .circle-outline {
+      opacity: 1;
+    }
+
+    .link:hover .circle-icon {
+      color: #0d0e13;
+    }
+
+    .link:hover .border {
+      transform: scaleX(1);
+    }
+
+    .hero .background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero .image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .scroll-to {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      animation: bounce 2s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateX(-50%) translateY(0);
+      }
+      50% {
+        transform: translateX(-50%) translateY(10px);
+      }
+    }
+
+    /* SERVICES SECTION */
+    .services {
+      position: relative;
+      padding: 100px 40px;
+      background: #0d0e13;
+      color: #ffffff;
+    }
+
+    .services .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .services .images {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .services .image {
+      aspect-ratio: 1 / 1.4;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    .services .image:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1 / 3;
+    }
+
+    .services .image:nth-child(3) {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .services .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .services .items {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .services .item {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .services .index {
+      font-size: 1rem;
+      font-weight: 500;
+      opacity: 0.6;
+    }
+
+    .services .subtitle {
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .services .body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .services .body p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .services .title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-top: 40px;
+      letter-spacing: -0.02em;
+      grid-column: 2;
+      margin-bottom: 20px;
+    }
+
+    .marquee {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      overflow: hidden;
+    }
+
+    .marquee .line {
+      white-space: nowrap;
+      animation: scroll 20s linear infinite;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    .marquee .icon {
+      width: 80px;
+      height: auto;
+      flex-shrink: 0;
+    }
+
+    /* WHAT WE BELIEVE SECTION */
+    .what-we-believe {
+      position: relative;
+      padding: 100px 40px;
+      background: linear-gradient(135deg, #0d0e13 0%, #1a1b22 100%);
+      color: #ffffff;
+    }
+
+    .what-we-believe .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .what-we-believe .label {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .what-we-believe .label .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .what-we-believe .title {
+      grid-column: 1 / -1;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .what-we-believe .body {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .what-we-believe .body p {
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .what-we-believe .quote {
+      grid-column: 1;
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.6;
+      font-style: italic;
+      opacity: 0.9;
+      border-left: 4px solid rgba(255, 255, 255, 0.3);
+      padding-left: 24px;
+      margin-top: 20px;
+    }
+
+    .what-we-believe .image {
+      grid-column: 2;
+      grid-row: 2 / 5;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .what-we-believe .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* THE APES SECTION */
+    .the-apes {
+      position: relative;
+      padding: 100px 40px;
+      background: #ffffff;
+      color: #0d0e13;
+    }
+
+    .the-apes .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .the-apes .label {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .the-apes .title {
+      grid-column: 1 / -1;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+
+    .the-apes .body {
+      grid-column: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .the-apes .body p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .the-apes .images {
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .the-apes .image {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .the-apes .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .the-apes .quote {
+      grid-column: 1 / -1;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.7;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(13, 14, 19, 0.1);
+    }
+
+    /* RECOGNITION SECTION */
+    .recognition {
+      position: relative;
+      padding: 100px 40px;
+      background: #0d0e13;
+      color: #ffffff;
+    }
+
+    .recognition .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .recognition .label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+      margin-bottom: 20px;
+    }
+
+    .recognition .label .icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .recognition .title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 60px;
+    }
+
+    .recognition .publications {
+      margin-bottom: 60px;
+    }
+
+    .recognition .publications ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+    }
+
+    .recognition .publications li {
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+
+    .recognition .publications p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      opacity: 0.8;
+    }
+
+    .recognition .publications a {
+      color: #ffffff;
+      text-decoration: underline;
+      transition: opacity 0.3s ease;
+    }
+
+    .recognition .publications a:hover {
+      opacity: 0.7;
+    }
+
+    .recognition .awards {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .recognition .item {
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .recognition .name {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .recognition .amount {
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero .container,
+      .services .container,
+      .what-we-believe .container,
+      .the-apes .container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+
+      .services .images {
+        grid-template-columns: 1fr;
+      }
+
+      .services .image {
+        aspect-ratio: 1;
+      }
+
+      .services .image:nth-child(1) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .services .image:nth-child(3) {
+        grid-column: auto;
+        grid-row: auto;
+      }
+
+      .services .title {
+        grid-column: 1;
+      }
+
+      .what-we-believe .image {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .the-apes .images {
+        grid-column: 1;
+      }
+
+      .the-apes .quote {
+        grid-column: 1;
+      }
+
+      .hero .title {
+        font-size: 2.5rem;
+      }
+
+      .services .title,
+      .what-we-believe .title,
+      .the-apes .title,
+      .recognition .title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero .container,
+      .services .container,
+      .what-we-believe .container,
+      .the-apes .container {
+        padding: 40px 20px;
+      }
+
+      .hero .container {
+        min-height: 100vh;
+      }
+
+      .hero .text-1 {
+        gap: 24px;
+      }
+
+      .hero .title {
+        font-size: 1.75rem;
+      }
+
+      .marquee .line {
+        animation: none;
+      }
+
+      .what-we-believe .quote {
+        font-size: 1rem;
+      }
+
+      .the-apes .images {
+        grid-template-columns: 1fr;
+      }
+
+      .the-apes .image {
+        aspect-ratio: 16 / 9;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="scroll">
+    <!-- HERO SECTION -->
+    <header class="hero light">
+      <div class="container">
+        <div class="text-1">
+          <h1 class="title">
+            <div class="title-mask"><div class="title-line">Building</div></div>
+            <div class="title-mask"><div class="title-line">Digital</div></div>
+            <div class="title-mask"><div class="title-line">Presence</div></div>
+          </h1>
+          <h2 class="subtitle">Digital experiences with maximum emotional impact</h2>
+          <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-arrow">
+            <path d="M0 5.65612V4.30388L8.41874 4.31842L5.05997 0.95965L5.99054 0L10.9923 4.97273L6.00508 9.96L5.07451 9.00035L8.43328 5.64158L0 5.65612Z" fill="currentColor"></path>
+          </svg>
+        </div>
+
+        <div class="text-2">
+          <div class="body">
+            <h3>We explore and push the boundaries of digital for brands and businesses that strive to enhance people's lives through exceptional experiences.</h3>
+            <p>For over a decade, we've been using profound design aesthetics, meticulously crafted details, and surprising interactions to create digital experiences that spark conversation, inspire action, and drive desirability.</p>
+          </div>
+          <a href="#" class="link">
+            <div class="wrap">
+              <div class="circle">
+                <div class="circle-fill"></div>
+                <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" class="circle-outline">
+                  <circle cx="25" cy="25" r="23"></circle>
+                </svg>
+                <div class="circle-icon">
+                  <svg viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-arrow">
+                    <path d="M0 5.65612V4.30388L8.41874 4.31842L5.05997 0.95965L5.99054 0L10.9923 4.97273L6.00508 9.96L5.07451 9.00035L8.43328 5.64158L0 5.65612Z" fill="currentColor"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="label">
+                Learn More
+                <div class="border"></div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="scroll-to">Scroll to explore</div>
+
+      <div class="background">
+        <img src="https://via.placeholder.com/2500x2626?text=Studio+Hero" alt="Hero background" class="image" loading="eager">
+      </div>
+    </header>
+
+    <!-- SERVICES SECTION -->
+    <section class="services dark">
+      <div class="container">
+        <ul class="images">
+          <li class="image">
+            <img src="https://via.placeholder.com/1500x2123?text=Service+1" alt="Service 1">
+          </li>
+          <li class="image">
+            <img src="https://via.placeholder.com/1500x1003?text=Service+2" alt="Service 2">
+          </li>
+          <li class="image">
+            <img src="https://via.placeholder.com/569x809?text=Service+3" alt="Service 3">
+          </li>
+        </ul>
+
+        <div class="items">
+          <div class="item">
+            <span class="index">01</span>
+            <h3 class="subtitle">Elevating sophistication across all senses</h3>
+            <div class="body">
+              <p>We ensure that the high standards and sophistication of your product are experienced by all senses while blurring the lines between the physical and the digital world. We go deep into details to provide a holistic experience that leaves a lasting impression on your customers and fits seamlessly into your existing ecosystem.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="index">02</span>
+            <h3 class="subtitle">To be human is our greatest quality</h3>
+            <div class="body">
+              <p>We believe that intuition is the most advanced technology we have, and curiosity is our most powerful tool. Our team is guided by the principles of compassion and honesty in our day-to-day communications, and we understand that people value feeling more than information. That's why we pour a lot of soul and passion into our work, delivering experiences that touch people on a deeper level.</p>
+            </div>
+          </div>
+
+          <h2 class="title">
+            <div class="marquee">
+              <div class="line">Forever Upwards</div>
+              <svg viewBox="0 0 169 78" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                <path d="M132 78C117.5 78 101.667 68.9167 84.5 50.75C84 51.25 82 53.0833 78.5 56.25C75.1667 59.25 73 61.1667 72 62C71.1667 62.6667 69.25 64.1667 66.25 66.5C63.4167 68.8333 61.0833 70.4167 59.25 71.25C57.5833 72.0833 55.4167 73.1667 52.75 74.5C50.0833 75.8333 47.4167 76.75 44.75 77.25C42.25 77.5833 39.5833 77.75 36.75 77.75C25.75 77.75 16.8333 74.1667 10 67C3.33333 59.8333 0 50.6667 0 39.5C0 28.5 3.25 19.25 9.75 11.75C16.4167 4.25 25.25 0.500001 36.25 0.500001C42.5833 0.500001 48.9167 2.16667 55.25 5.5C61.75 8.83333 66.6667 12 70 15C73.3333 18 78.1667 22.6667 84.5 29C85 28.5 86.4167 27.0833 88.75 24.75C91.25 22.25 92.8333 20.6667 93.5 20C94.3333 19.3333 95.8333 17.9167 98 15.75C100.333 13.5833 102 12.1667 103 11.5C104.167 10.6667 105.833 9.5 108 8C110.167 6.33334 112 5.16667 113.5 4.5C115.167 3.83333 117 3.08333 119 2.25C121.167 1.41667 123.25 0.833335 125.25 0.500001C127.417 0.166667 129.583 0 131.75 0C142.75 0 151.667 3.66667 158.5 11C165.333 18.3333 168.75 27.5833 168.75 38.75C168.75 50.0833 165.417 59.5 158.75 67C152.083 74.3333 143.167 78 132 78ZM132 17C130 17 128 17.25 126 17.75C124.167 18.25 122.167 19.0833 120 20.25C118 21.25 116.25 22.1667 114.75 23C113.25 23.8333 111.333 25.25 109 27.25C106.833 29.0833 105.25 30.4167 104.25 31.25C103.417 32.0833 101.75 33.6667 99.25 36C96.75 38.3333 95.25 39.6667 94.75 40C94 40.6667 92.5 42 90.25 44C88 46 86.3333 47.5 85.25 48.5C84.25 49.5 83.1667 50.5833 82 52C80.8333 53.25 79.9167 54.25 79.25 55C78.5833 55.6667 77.8333 56.3333 77 57C76.1667 57.6667 75.5833 58.1667 75.25 58.5C74.75 59.1667 73.8333 60.3333 72.5 62C71.1667 63.6667 70.1667 64.8333 69.5 65.5C68.8333 66.1667 67.6667 67.3333 66 69C64.3333 70.6667 63.1667 71.8333 62.5 72.5C61.8333 73.1667 60.3333 74.6667 58 76C55.6667 77.3333 53.5 78.25 51.5 78.75C49.5 79.1667 47.25 79.5 44.75 79.75C42.25 80 39.5833 80.1667 36.75 80.1667C23.75 80.1667 12.5833 75.8333 3.25 67.1667C-6.08333 58.5 -11 47.5 -11 34.1667C-11 22.5 -6.33333 12.5833 4 4.33333C14.3333 -3.91667 25.4167 -8 37.25 -8C45.4167 -8 53.1667 -5.5 60.5 0.5C67.8333 6.5 73.5 14.1667 77.5 23.5C78.5 26 79.3333 27.6667 80 28.5C80.6667 29.3333 82 30.6667 84 32.5C86.1667 34.1667 87.9167 35.5833 89.25 36.75C90.5833 37.9167 92.75 40 95.75 42.75C98.75 45.5 101.167 47.8333 103 49.75C104.833 51.6667 107 54.1667 109.5 57.25C112 60.3333 113.917 62.5 115.25 63.75C116.583 65 118.333 66.5 120.5 68.25C122.667 70 124.5 71.3333 126 72.25C127.5 73.1667 129.333 74.3333 131.5 75.75C133.667 77.1667 135.5 78.0833 137 78.5C138.667 78.9167 140.5 79.25 142.5 79.5C144.5 79.75 146.417 79.9167 148.25 80C150.083 80.1667 152 80.25 154 80.25C166.333 80.25 177.083 76.1667 186.25 68C195.417 59.8333 200 49 200 35.5C200 22.1667 195.5 10.9167 186.5 1.75C177.5 -7.41667 166.667 -12 154 -12C147.667 -12 141.5 -10.5833 135.5 -7.75C129.5 -4.91667 124.667 -1.33333 121 2.5" fill="currentColor"></path>
+              </svg>
+            </div>
+          </h2>
+
+          <div class="item">
+            <span class="index">03</span>
+            <h3 class="subtitle">Simplicity is the dot on our horizon</h3>
+            <div class="body">
+              <p>In today's world, we have become information-rich and time-poor. It is those who focus on what really matters that set the tone. We approach every project with a keen eye for simplicity and elegance. Great digital design is the perfect blend of form and function that focuses on the essentials and leaves behind the frivolous.</p>
+            </div>
+          </div>
+
+          <div class="item">
+            <span class="index">04</span>
+            <h3 class="subtitle">Uncompromising standard of excellence</h3>
+            <div class="body">
+              <p>We aim to push boundaries and exceed expectations with every project, consistently delivering award-winning digital experiences. We recognize that true art lies in the intricacies, so we approach each project with a meticulous eye for detail and a commitment to crafting tailor-made experiences that capture the essence of your brand. Down to earth but reaching for the stars.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE BELIEVE SECTION -->
+    <section class="what-we-believe">
+      <div class="container">
+        <h2 class="label">
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+            <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"></path>
+          </svg>
+          <div class="text">What we believe</div>
+        </h2>
+
+        <h2 class="title">
+          <div class="title-mask"><div class="title-line">Data</div></div>
+          <div class="title-mask"><div class="title-line">Informs,</div></div>
+          <div class="title-mask"><div class="title-line">Emotion</div></div>
+          <div class="title-mask"><div class="title-line">Converts</div></div>
+        </h2>
+
+        <div class="body">
+          <p>We believe that the most effective outcomes are achieved when data-driven insights are used to inspire emotive experiences. Leading to increased brand loyalty, long-term customer engagement, and higher conversion rates.</p>
+        </div>
+
+        <blockquote class="quote">
+          "Our approach is informed by insight and research, but at the end of the day, we focus on making people feel."
+        </blockquote>
+
+        <div class="image">
+          <img src="https://via.placeholder.com/2500x1667?text=What+We+Believe" alt="What we believe">
+        </div>
+      </div>
+    </section>
+
+    <!-- THE APES SECTION -->
+    <section class="the-apes light">
+      <div class="container">
+        <h2 class="label">
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+            <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"></path>
+          </svg>
+          <div class="text">The Team</div>
+        </h2>
+
+        <h3 class="title">
+          <div class="title-mask"><div class="title-line">Design &</div></div>
+          <div class="title-mask"><div class="title-line">Technology</div></div>
+          <div class="title-mask"><div class="title-line">Enthusiasts</div></div>
+        </h3>
+
+        <div class="body">
+          <p>We are a team of like-minded design enthusiasts and tech aficionados that explore the digital frontier with grit and dedication. Intrigued by beauty, fascinated by technology and fuelled with an everlasting devotion to digital craftsmanship and meaningful aesthetics.</p>
+        </div>
+
+        <div class="images">
+          <div class="image">
+            <img src="https://via.placeholder.com/1920x1280?text=Team+Member+1" alt="Team member">
+          </div>
+          <div class="image">
+            <img src="https://via.placeholder.com/1920x1280?text=Team+Member+2" alt="Team member">
+          </div>
+          <div class="image">
+            <img src="https://via.placeholder.com/1920x1280?text=Team+Member+3" alt="Team member">
+          </div>
+          <div class="image">
+            <img src="https://via.placeholder.com/1920x1280?text=Team+Member+4" alt="Team member">
+          </div>
+        </div>
+
+        <blockquote class="quote">
+          *We believe in a fluid team approach that allows us to bring together the best designers, developers and agencies in the world in order to serve the needs of today's clients.
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- RECOGNITION SECTION -->
+    <section class="recognition dark">
+      <div class="container">
+        <h2 class="label">
+          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+            <path d="M7.41908 4.56679L6.13722 0L4.85418 4.92566L0 6L4.85418 7.25435L6.13722 12L7.3276 7.25435L12 6L7.41908 4.56679Z" fill="currentColor"></path>
+          </svg>
+          <div class="text">Recognition</div>
+        </h2>
+
+        <h3 class="title">
+          <div class="title-mask"><div class="title-line">Awards &</div></div>
+          <div class="title-mask"><div class="title-line">Publications</div></div>
+        </h3>
+
+        <div class="publications">
+          <ul>
+            <li>
+              <p><strong>Ottografie</strong><br>Best Navigation Structure '26<br><a href="#" target="_self">The Webby Awards</a></p>
+            </li>
+            <li>
+              <p><strong>Ottografie</strong><br>Gold Lovie Award '25<br><a href="#" target="_self">Lovie Awards</a></p>
+            </li>
+            <li>
+              <p><strong>Ali Ali</strong><br>Site of the Month<br><a href="#" target="_self">Awwwards</a></p>
+            </li>
+          </ul>
+        </div>
+
+        <ul class="awards">
+          <li class="item">
+            <span class="name">Awwwards</span>
+            <span class="amount">x50</span>
+          </li>
+          <li class="item">
+            <span class="name">The FWA</span>
+            <span class="amount">x10</span>
+          </li>
+          <li class="item">
+            <span class="name">CSSDA</span>
+            <span class="amount">x8</span>
+          </li>
+          <li class="item">
+            <span class="name">Webby Awards</span>
+            <span class="amount">x15</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
